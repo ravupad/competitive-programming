@@ -1,0 +1,7 @@
+[package]
+name = "rust-cp"
+version = "0.1.0"
+authors = ["Ravi Upadhyay <ravupad@gmail.com>"]
+edition = "2018"
+
+[dependencies]
