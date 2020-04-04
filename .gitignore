@@ -1,2 +1,3 @@
 rust/target
 *.class
+input.txt
