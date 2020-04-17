@@ -72,25 +72,30 @@ fn merge_sort<T>(array: &mut [T])
     }
 }
 
-fn get_char(
-    f: &mut StdinLock,
-    buffer: &mut [u8],
-    buffer_len: &mut usize,
-    offset: &mut usize) -> u8
-{
-    let char: u8;
-    if *offset >= *buffer_len {
-        *buffer_len = f.read(buffer).unwrap();
-        *offset = 0;
+
+
+fn main() {
+    let stdin = io::stdin();
+    let mut stdin = stdin.lock();
+    let mut buffer = [0; 1024];
+    let mut array: Vec<i64> = Vec::new();
+    let mut offset = 0;
+    let mut buffer_len = 0;
+    let n = read_num(&mut stdin, &mut buffer, &mut buffer_len, &mut offset);
+    for _ in 0..n {
+        array.push(read_num(&mut stdin, &mut buffer, &mut buffer_len, &mut offset));
     }
-    if *buffer_len == 0 {
-        char = 0;
-    } else {
-        char = buffer[*offset];
+    merge_sort(&mut array);
+    print!("[");
+    for (i, val) in array.iter().enumerate() {
+        print!("{}", val);
+        if i != (array.len() - 1) {
+            print!(",");
+        }
     }
-    *offset += 1;
-    char
+    print!("]");
 }
+
 
 fn read_num(
     f: &mut StdinLock, 
@@ -127,24 +132,22 @@ fn read_num(
     num
 }
 
-fn main() {
-    let stdin = io::stdin();
-    let mut stdin = stdin.lock();
-    let mut buffer = [0; 1024];
-    let mut array: Vec<i64> = Vec::new();
-    let mut offset = 0;
-    let mut buffer_len = 0;
-    let n = read_num(&mut stdin, &mut buffer, &mut buffer_len, &mut offset);
-    for _ in 0..n {
-        array.push(read_num(&mut stdin, &mut buffer, &mut buffer_len, &mut offset));
+fn get_char(
+    f: &mut StdinLock,
+    buffer: &mut [u8],
+    buffer_len: &mut usize,
+    offset: &mut usize) -> u8
+{
+    let char: u8;
+    if *offset >= *buffer_len {
+        *buffer_len = f.read(buffer).unwrap();
+        *offset = 0;
     }
-    merge_sort(&mut array);
-    print!("[");
-    for (i, val) in array.iter().enumerate() {
-        print!("{}", val);
-        if i != (array.len() - 1) {
-            print!(",");
-        }
+    if *buffer_len == 0 {
+        char = 0;
+    } else {
+        char = buffer[*offset];
     }
-    print!("]");
+    *offset += 1;
+    char
 }
