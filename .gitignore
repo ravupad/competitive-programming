@@ -1,3 +1,4 @@
+main
 *.out
 *.exe
 main.*
@@ -5,3 +6,4 @@ rust
 *.class
 *input.txt*
 *.exe
+
