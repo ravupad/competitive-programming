@@ -6,4 +6,8 @@ rust
 *.class
 *input.txt*
 *.exe
+*~
+~*
+#*
+*#
 
