@@ -1,0 +1,18 @@
+Pascals triangle is 
+
+1
+1 1
+1 2 1
+1 3 3 1
+1 4 6 4 1
+
+Question: Find kth row.
+
+Notice that nth row is
+nC0, nC1, nC2, ....
+
+And 
+---
+
+nC0 = 1,
+nCr = nCr-1 * (n-r+1) / r

@@ -1,0 +1,13 @@
+Approach 1: Rotate starting from outer boundary and then go the inner boundary one by one.
+For each boundary element there will be a loop of 4 times. 
+For e.g. (0, 0) -> (0, n-1) -> (n-1, n-1) -> (n-1, 0) -> (0, 0)
+
+Approach 2:
+(i, j) -> (j, n-i-1) is the final state.
+
+This can be done in two phase.
+A) (i, j) -> (j, i)
+B) (j, i) -> (j, n-i-1)
+
+A can be done by reflecting along the diagonal, and B can be done by reflecting along
+the middle column.

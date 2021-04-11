@@ -1,0 +1,60 @@
+Given an array A of integers, find the maximum of j - i subjected to the constraint of 
+A[i] <= A[j].
+
+Let's consider what values can be considered for the index i (the left one).
+Suppose A[i1] = 5, and for some i2 > i1, A[i2] >= A[i1]. We can clearly see that i2 should not 
+ever be used for the left index. Suppose, otherwise that j,i2 gives answer, then
+A[j] >= A[i2] => A[j] >= A[i1], but then j-i1 > j-i2, so j-i2 can't ever be the answer, as j-i1
+is better answer.
+
+Thus we will scan the array from left, and keep a stack which will only be filled with decreasing
+sequence. e.g. 1,5,0,4,-1,-2 will create a stack, 1,0,-1,-2
+
+So let's keep two stacks, one scanned from left with decreasing sequence called a, and one 
+scanned from right with increasing sequence called b.
+
+
+
+Keep popping from b, until top of b is less than top of a. Now last popped from b - top of a is
+a candidate for answer. 
+
+Repeat the above process again, until either stack a and b is empty.
+
+public class Solution {
+    public int maximumGap(final int[] A) {
+        Stack<Integer> rMax = new Stack<>();
+        int least = 0, solution = -1;
+        for (int i = A.length - 1; i >= 0; i--) {
+            if (rMax.empty()) {
+                rMax.push(i);
+            } else if (A[i] > A[rMax.peek()]) {
+                rMax.push(i);
+            }
+        }
+        if (A.length > 0) {
+            solution = 0;
+        }
+        for (int i = 0; i < A.length && !rMax.empty();) {
+            // System.out.println("index " + i + " Top " + rMax.peek());
+            if (i != least && A[i] >= A[least]) {
+                i++;
+                continue;
+            }
+            least = i;
+            if (rMax.peek() <= i) {
+                rMax.pop();
+                continue;
+            }
+            if (A[rMax.peek()] >= A[i]) {
+                solution = max(solution, rMax.pop()-i);
+            } else {
+                i++;
+            }
+        }
+        return solution;
+    }
+    
+    private static int max(int a, int b) {
+        return a > b ? a : b;
+    }
+}

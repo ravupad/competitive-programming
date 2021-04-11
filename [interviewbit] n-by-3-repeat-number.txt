@@ -1,0 +1,22 @@
+Boyer Moore's Algorithm
+-----------------------
+
+Generalized Algorithm and Proof: We have to find a number which occurs alteast > n/(k+1) times
+in an array.
+
+Algorithm: Prepare k bins and one trash bin. Pick an element from the array. 
+* If the element is already inside on of the bin, put the new element of the same value in the 
+  same bin. 
+* Otherwise if one of the bin is empty then put the new element in the empty bin. 
+* Otherwise put the element in trash bin and also pick one elements from all the k bins and put 
+  them in trash bin too.
+At the end, when the array is empty, all the elements in the k bin are candidates to be 
+having occurring n/k times in array. Check for the frequency of each element in the array.
+
+Proof: Suppose an element is in the trash bin in the end. We will prove that the element must 
+be occurring in the array <= n/(k+1) times. Suppose, the element is occurring m times. Every time
+the element goes into the trash bin (either from array or from one of k bin), along with it goes
+exactly k other balls. So total balls in trash is atlest m*(k+1); and m*(k+1) <= n. 
+Thus m <= n/(k+1). Hence this element can't be occuring > n(k+1) times in the array.
+
+https://cs.stackexchange.com/questions/91803/explaination-for-variation-of-boyer-moore-majority-voting-algorithm/91805#91805

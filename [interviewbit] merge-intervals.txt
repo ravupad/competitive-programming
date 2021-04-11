@@ -1,0 +1,17 @@
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping 
+intervals, and return an array of the non-overlapping intervals that cover all the 
+intervals in the input.
+
+---
+
+Sort the intervals by the starti.
+Use two counters count, and j (starting with 0 and 1).
+
+loop 
+* interval[count], and interval[j] can be merged if start[j] <= end[count].
+  in this case merge modify i with end[count] = max(end[count], end[j]).
+  j = j + 1;
+* interval[count] and interval[j] cannot be merged. count++;
+  interval[count] = interval[j]
+  j = j+1
+
